@@ -1,9 +1,76 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '@mdi/react'
 import { mdiEmail, mdiLock } from '@mdi/js';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
+import { toast } from 'react-toastify';
+import Loading from '../Loading/Loading';
 
 const Login = () => {
+    const navigate = useNavigate();
+    // sign in with google 
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+    }
+
+    // login with email and password 
+    const [
+        signInWithEmailAndPassword,
+        emailUser,
+        emailLoading,
+        emailError,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    // error toast 
+    useEffect(() => {
+        toast(emailError?.message ? emailError?.message : error?.message);
+    }, [emailError, error])
+
+    const handleLoginUser = async (event) => {
+        event.preventDefault();
+
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        await signInWithEmailAndPassword(email, password);
+
+    }
+
+    //redirect user
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
+
+    if (loading || emailLoading) {
+        <Loading></Loading>;
+    }
+
+    if (user || emailUser) {
+        navigate(from, { replace: true });
+    }
+
+    // reset password 
+
+    const [sendPasswordResetEmail, sending, resendError] = useSendPasswordResetEmail(auth);
+    const [userEmail, setUserEmail] = useState('');
+    useEffect(() => {
+        if (resendError?.message) {
+            toast(resendError?.message)
+        }
+    }, [resendError]);
+
+    const resendEmail = async () => {
+
+        if (!userEmail) {
+            toast('Enter email');
+        } else {
+            await sendPasswordResetEmail(userEmail);
+            toast('Reset email sent ')
+        }
+    }
     return (
         <div className="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
             <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
@@ -16,13 +83,13 @@ const Login = () => {
                             <h1 className="text-green-500 text-2xl md:text-3xl lg:text-4xl font-bold p-4">LOGIN</h1>
                             <p>Enter your information to register</p>
                         </div>
-                        <div>
+                        <form onSubmit={handleLoginUser}>
                             <div className="flex -mx-3">
                                 <div className="w-full px-3 mb-5 text-left">
                                     <label for="" className="text-xs font-semibold px-1">Email</label>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiEmail} size="25px" className="text-gray-400"></Icon></div>
-                                        <input type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
+                                        <input type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" name='email' placeholder="johnsmith@example.com" />
                                     </div>
                                 </div>
                             </div>
@@ -31,28 +98,28 @@ const Login = () => {
                                     <label for="" className="text-xs font-semibold px-1">Password</label>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiLock} size="25px" className="text-gray-400"></Icon></div>
-                                        <input type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                        <input type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" name='password' placeholder="************" />
                                     </div>
                                 </div>
                             </div>
                             <div className="flex -mx-3">
                                 <div className="w-full px-3 mb-5">
-                                    <button className="block w-full max-w-xs mx-auto bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-lg px-3 py-3 font-semibold">LOGIN NOW</button>
+                                    <button type='submit' className="block w-full max-w-xs mx-auto bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-lg px-3 py-3 font-semibold">LOGIN NOW</button>
                                 </div>
                             </div>
-                            <p>Not a account? <Link to='/signup'>SignUp</Link></p>
-                            <div className="flex items-center space-x-4 my-3">
-                                <hr className="w-full border border-gray-300" />
-                                <div className="font-semibold text-gray-300">OR</div>
-                                <hr className="w-full border border-gray-300" />
-                            </div>
-                            <button class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
-                                <div class="relative flex items-center space-x-4 justify-center">
-                                    <img src="https://tailus.io/sources/blocks/social/preview/images/google.svg" class="absolute left-0 w-5" alt="google logo" />
-                                    <span class="block pl-3 w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Google</span>
-                                </div>
-                            </button>
+                        </form>
+                        <p>Not a account? <Link to='/signup'>SignUp</Link></p>
+                        <div className="flex items-center space-x-4 my-3">
+                            <hr className="w-full border border-gray-300" />
+                            <div className="font-semibold text-gray-300">OR</div>
+                            <hr className="w-full border border-gray-300" />
                         </div>
+                        <button onClick={handleGoogleSignIn} class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+                            <div class="relative flex items-center space-x-4 justify-center">
+                                <img src="https://tailus.io/sources/blocks/social/preview/images/google.svg" class="absolute left-0 w-5" alt="google logo" />
+                                <span class="block pl-3 w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Google</span>
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>
