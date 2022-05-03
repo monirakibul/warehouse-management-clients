@@ -1,3 +1,5 @@
+import { mdiAccount, mdiEmail, mdiLock } from '@mdi/js';
+import Icon from '@mdi/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -16,18 +18,11 @@ const SignUp = () => {
                         </div>
                         <div>
                             <div class="flex -mx-3">
-                                <div class="w-1/2 px-3 mb-5 text-left">
-                                    <label for="" class="text-xs font-semibold px-1">First name</label>
+                                <div class="w-full px-3 mb-5 text-left">
+                                    <label for="" class="text-xs font-semibold px-1">Full Name</label>
                                     <div class="flex">
-                                        <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                        <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John" />
-                                    </div>
-                                </div>
-                                <div class="w-1/2 px-3 mb-5  text-left">
-                                    <label for="" class="text-xs font-semibold px-1">Last name</label>
-                                    <div class="flex">
-                                        <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                        <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Smith" />
+                                        <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiAccount} size="25px" className="text-gray-400"></Icon></div>
+                                        <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Mr John" />
                                     </div>
                                 </div>
                             </div>
@@ -35,7 +30,7 @@ const SignUp = () => {
                                 <div class="w-full px-3 mb-5 text-left">
                                     <label for="" class="text-xs font-semibold px-1">Email</label>
                                     <div class="flex">
-                                        <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
+                                        <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiEmail} size="25px" className="text-gray-400"></Icon></div>
                                         <input type="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
                                     </div>
                                 </div>
@@ -44,7 +39,7 @@ const SignUp = () => {
                                 <div class="w-full px-3 mb-12">
                                     <label for="" class="text-xs font-semibold px-1">Password</label>
                                     <div class="flex">
-                                        <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
+                                        <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiLock} size="25px" className="text-gray-400"></Icon></div>
                                         <input type="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                                     </div>
                                 </div>
@@ -55,6 +50,17 @@ const SignUp = () => {
                                 </div>
                             </div>
                             <p>Already registered? <Link to='/login'>Login</Link></p>
+                            <div className="flex items-center space-x-4 my-3">
+                                <hr className="w-full border border-gray-300" />
+                                <div className="font-semibold text-gray-300">OR</div>
+                                <hr className="w-full border border-gray-300" />
+                            </div>
+                            <button class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+                                <div class="relative flex items-center space-x-4 justify-center">
+                                    <img src="https://tailus.io/sources/blocks/social/preview/images/google.svg" class="absolute left-0 w-5" alt="google logo" />
+                                    <span class="block pl-3 w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Google</span>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
