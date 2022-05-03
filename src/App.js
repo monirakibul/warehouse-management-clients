@@ -1,23 +1,37 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/Pages/Shared/Header/Header';
+import { Route, Routes } from 'react-router-dom';
+import Home from './components/Pages/Home/Home';
+import Login from './components/Pages/Login/Login';
+import SignUp from './components/Pages/SignUp/SignUp';
+import Blogs from './components/Pages/Blogs/Blogs';
+import NotFound from './components/Pages/NotFound/NotFound';
+import MyItems from './components/Pages/MyItems/MyItems';
+import AddItem from './components/Pages/AddItem/AddItem';
+import ManageItem from './components/Pages/ManageItem/ManageItem';
+import Inventory from './components/Pages/Inventory/Inventory';
+import InventoryDetails from './components/Pages/InventoryDetails/InventoryDetails';
+import Footer from './components/Pages/Shared/Footer/Footer';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header></Header>
+      <Routes>
+        <Route path='/' element={<Home></Home>}></Route>
+        <Route path='/home' element={<Home></Home>}></Route>
+        <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/signup' element={<SignUp></SignUp>}></Route>
+        <Route path='/my-items' element={<MyItems></MyItems>}></Route>
+        <Route path='/add-item' element={<AddItem></AddItem>}></Route>
+        <Route path='/manage-item' element={<ManageItem></ManageItem>}></Route>
+        <Route path='/inventory' element={<Inventory></Inventory>}></Route>
+        <Route path='/inventory/:id' element={<InventoryDetails></InventoryDetails>}></Route>
+        <Route path='/blogs' element={<Blogs></Blogs>}></Route>
+        <Route path='*' element={<NotFound></NotFound>}></Route>
+      </Routes>
+      <Footer></Footer>
     </div>
   );
 }
