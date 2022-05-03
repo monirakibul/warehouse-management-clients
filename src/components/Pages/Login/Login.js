@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '@mdi/react'
 import { mdiEmail, mdiLock } from '@mdi/js';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { toast } from 'react-toastify';
 import Loading from '../Loading/Loading';
 
 const Login = () => {
     const navigate = useNavigate();
+
     // sign in with google 
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
@@ -43,17 +44,7 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
-
-    if (loading || emailLoading) {
-        <Loading></Loading>;
-    }
-
-    if (user || emailUser) {
-        navigate(from, { replace: true });
-    }
-
     // reset password 
-
     const [sendPasswordResetEmail, sending, resendError] = useSendPasswordResetEmail(auth);
     const [userEmail, setUserEmail] = useState('');
     useEffect(() => {
@@ -61,6 +52,7 @@ const Login = () => {
             toast(resendError?.message)
         }
     }, [resendError]);
+
 
     const resendEmail = async () => {
 
@@ -71,6 +63,16 @@ const Login = () => {
             toast('Reset email sent ')
         }
     }
+
+    if (loading || emailLoading) {
+        return <Loading></Loading>;
+    }
+
+    if (user || emailUser) {
+        navigate(from, { replace: true });
+    }
+
+
     return (
         <div className="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
             <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>

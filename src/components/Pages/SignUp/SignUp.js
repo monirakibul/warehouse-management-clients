@@ -1,9 +1,58 @@
 import { mdiAccount, mdiEmail, mdiLock } from '@mdi/js';
 import Icon from '@mdi/react';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import auth from '../../../firebase.init';
+import Loading from '../Loading/Loading';
 
 const SignUp = () => {
+    const navigate = useNavigate();
+
+    // firebase hooks 
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+
+    const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
+
+    const [
+        signInWithGoogle,
+        emailUser,
+        emailLoading,
+        emailError,
+    ] = useSignInWithGoogle(auth);
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+    }
+    // error toast 
+    useEffect(() => {
+        toast(emailError?.message ? emailError?.message : error?.message);
+    }, [emailError, error])
+
+    if (loading || updating || emailLoading) {
+        return <Loading></Loading>
+    }
+    if (user || emailUser) {
+        navigate('/');
+    }
+    // create user with email and password 
+    const handleCreateUser = async (event) => {
+        event.preventDefault();
+
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name });
+
+    }
     return (
         <div class="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
             <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
@@ -16,13 +65,13 @@ const SignUp = () => {
                             <h1 className="text-green-500 text-2xl md:text-3xl lg:text-4xl font-bold p-4">REGISTER</h1>
                             <p>Enter your information to register</p>
                         </div>
-                        <div>
+                        <form onSubmit={handleCreateUser}>
                             <div class="flex -mx-3">
                                 <div class="w-full px-3 mb-5 text-left">
                                     <label for="" class="text-xs font-semibold px-1">Full Name</label>
                                     <div class="flex">
                                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiAccount} size="25px" className="text-gray-400"></Icon></div>
-                                        <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Mr John" />
+                                        <input name='name' type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Mr John" />
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +80,7 @@ const SignUp = () => {
                                     <label for="" class="text-xs font-semibold px-1">Email</label>
                                     <div class="flex">
                                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiEmail} size="25px" className="text-gray-400"></Icon></div>
-                                        <input type="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
+                                        <input name='email' type="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +89,7 @@ const SignUp = () => {
                                     <label for="" class="text-xs font-semibold px-1">Password</label>
                                     <div class="flex">
                                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiLock} size="25px" className="text-gray-400"></Icon></div>
-                                        <input type="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                        <input name='password' type="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                                     </div>
                                 </div>
                             </div>
@@ -49,19 +98,19 @@ const SignUp = () => {
                                     <button class="block w-full max-w-xs mx-auto bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
                                 </div>
                             </div>
-                            <p>Already registered? <Link to='/login'>Login</Link></p>
-                            <div className="flex items-center space-x-4 my-3">
-                                <hr className="w-full border border-gray-300" />
-                                <div className="font-semibold text-gray-300">OR</div>
-                                <hr className="w-full border border-gray-300" />
-                            </div>
-                            <button class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
-                                <div class="relative flex items-center space-x-4 justify-center">
-                                    <img src="https://tailus.io/sources/blocks/social/preview/images/google.svg" class="absolute left-0 w-5" alt="google logo" />
-                                    <span class="block pl-3 w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Google</span>
-                                </div>
-                            </button>
+                        </form>
+                        <p>Already registered? <Link to='/login'>Login</Link></p>
+                        <div className="flex items-center space-x-4 my-3">
+                            <hr className="w-full border border-gray-300" />
+                            <div className="font-semibold text-gray-300">OR</div>
+                            <hr className="w-full border border-gray-300" />
                         </div>
+                        <button onClick={handleGoogleSignIn} class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+                            <div class="relative flex items-center space-x-4 justify-center">
+                                <img src="https://tailus.io/sources/blocks/social/preview/images/google.svg" class="absolute left-0 w-5" alt="google logo" />
+                                <span class="block pl-3 w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Google</span>
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>

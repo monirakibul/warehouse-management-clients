@@ -42,7 +42,7 @@ const Header = () => {
                                     <CustomLink to="/my-items">My Items</CustomLink>
                                     <CustomLink to="/add-items">Add Items</CustomLink>
                                     <CustomLink to="/manage-items">Manage Items</CustomLink>
-                                    <a className='lg:py-4 px-2 text-gray-500 font-semibold lg:hover:text-green-500 transition duration-300 w-full md:block' onClick={logOut}>Log out</a>
+                                    <a className='lg:py-4 px-2 text-gray-500 font-semibold cursor-pointer lg:hover:text-green-500 transition duration-300 w-full md:block' onClick={logOut}>Log out</a>
                                 </> : <>
                                     <Link to="/login" className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300">Log In</Link>
                                     <Link to="/signup" className="py-2 px-2 font-medium text-white bg-green-500 rounded hover:bg-green-400 transition duration-300">Sign Up</Link>
@@ -70,18 +70,16 @@ const Header = () => {
                 {/* mobile menu  */}
                 <div className={isActive ? 'mobile-menu lg:hidden' : 'lg:hidden hidden mobile-menu'}>
                     <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/">Home</CustomLink>
-                    <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/login">LogIn</CustomLink>
-                    <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/signup">SignUp</CustomLink>
                     <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/blogs">Blogs</CustomLink>
                     {
                         user ? <>
                             <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/my-items">My Items</CustomLink>
                             <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/add-items">Add Items</CustomLink>
                             <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/manage-items">Manage Items</CustomLink>
-                            <a style={{ display: 'block', width: '100%', padding: '10px' }} className='lg:py-4 px-2  font-semibold hover:text-white hover:bg-green-500 w-full transition duration-300' onClick={logOut}>Log out</a>
+                            <a style={{ display: 'block', width: '100%', padding: '10px' }} className='lg:py-4 px-2  font-semibold hover:text-white hover:bg-green-500 w-full transition duration-300 text-gray-500' onClick={logOut}>Log out</a>
                         </> : <>
-                            <Link to="/login" className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300">Log In</Link>
-                            <Link to="/signup" className="py-2 px-2 font-medium text-white bg-green-500 rounded hover:bg-green-400 transition duration-300">Sign Up</Link>
+                            <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/login">LogIn</CustomLink>
+                            <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px' }} to="/signup">SignUp</CustomLink>
                         </>
                     }
                 </div>
