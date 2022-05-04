@@ -40,27 +40,27 @@ const AddItem = () => {
                 <form className="w-full space-y-8" onSubmit={addItemDb}>
                     <div className="relative">
                         <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Name</label>
-                        <input name='name' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="John" />
+                        <input name='name' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
                     </div>
                     <div className="relative">
                         <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Image</label>
-                        <input name='image' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="Doe" />
+                        <input name='image' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
                     </div>
                     <div className="relative">
                         <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Description</label>
-                        <input name='description' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="janedoe@email.com" />
+                        <input name='description' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
                     </div>
                     <div className="relative">
                         <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Price</label>
-                        <input name='price' type="number" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="janedoe@email.com" />
+                        <input name='price' type="number" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
                     </div>
                     <div className="relative">
                         <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Quantity</label>
-                        <input name='quantity' type="number" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="janedoe@email.com" />
+                        <input name='quantity' type="number" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
                     </div>
                     <div className="relative">
                         <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Supplier Name</label>
-                        <input name='supplier' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="janedoe@email.com" />
+                        <input name='supplier' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
                     </div>
                     <div className="relative">
                         <button className="inline-block w-full p-2 font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-500 ease">Submit</button>

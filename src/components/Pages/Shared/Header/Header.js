@@ -32,6 +32,7 @@ const Header = () => {
                             {/* desktop Navbar  */}
                             <div className="hidden md:flex items-center space-x-1">
                                 <CustomLink to="/">Home</CustomLink>
+                                <CustomLink to="/inventory">Inventory</CustomLink>
                                 <CustomLink to="/blogs">Blogs</CustomLink>
                             </div>
                         </div>
@@ -73,6 +74,7 @@ const Header = () => {
                 <div className={isActive ? 'mobile-menu lg:hidden' : 'lg:hidden hidden mobile-menu'}>
                     <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee', borderTop: '1px solid #eee' }} to="/">Home</CustomLink>
                     <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/blogs">Blogs</CustomLink>
+                    <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/inventory">Inventory</CustomLink>
                     {
                         user ? <>
                             <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/profile">Profile</CustomLink>
