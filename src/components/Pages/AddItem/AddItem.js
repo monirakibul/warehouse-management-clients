@@ -63,7 +63,7 @@ const AddItem = () => {
                         <input name='supplier' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
                     </div>
                     <div className="relative">
-                        <button className="inline-block w-full p-2 font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-500 ease">Submit</button>
+                        <button className="inline-block w-full p-2 font-medium text-center text-white transition duration-200 bg-green-500 rounded-lg hover:bg-green-700 ease">Submit</button>
                     </div>
                 </form>
             </div>

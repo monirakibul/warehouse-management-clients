@@ -30,7 +30,7 @@ const Inventory = () => {
     }
 
     const handleUpdate = id => {
-        navigate(`/update/${id}`)
+        navigate(`/inventory/${id}`)
     }
 
     return (
@@ -63,7 +63,7 @@ const Inventory = () => {
                     </thead>
                     <tbody>
                         {
-                            items.map(item => <SingleItem item={item} handleDelete={handleDelete} handleUpdate={handleUpdate}></SingleItem>)
+                            items.map(item => <SingleItem key={item._id} item={item} handleDelete={handleDelete} handleUpdate={handleUpdate}></SingleItem>)
                         }
                     </tbody>
                 </table>

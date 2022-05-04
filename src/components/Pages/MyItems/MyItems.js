@@ -36,7 +36,7 @@ const MyItems = () => {
     }
 
     const handleUpdate = id => {
-        navigate(`/update/${id}`)
+        navigate(`/inventory/${id}`)
     }
 
     return (
