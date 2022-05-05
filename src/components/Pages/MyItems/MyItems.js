@@ -40,7 +40,7 @@ const MyItems = () => {
     }
 
     return (
-        <div className='flex flex-col text-left items-center flex-grow'>
+        <div className='bg-gray-100 flex flex-col text-left items-center flex-grow'>
             <h1 className="text-green-500 text-2xl md:text-3xl lg:text-4xl mt-3 font-bold p-4">My Items</h1>
 
             <div className="overflow-x-auto w-11/12 md:w-full h-full pb-10">

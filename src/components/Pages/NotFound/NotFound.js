@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const NotFound = () => {
     const navigate = useNavigate();
     return (
-        <div className="sm: w-4/4 mdw-9/12 m-auto py-16 min-h-screen flex items-center justify-center">
+        <div className="bg-gray-100 py-16 flex-grow flex items-center justify-center">
             <div className="bg-white shadow overflow-hidden sm:rounded-lg pb-8">
                 <div className="border-t border-gray-200 text-center pt-8">
                     <h1 className="text-9xl font-bold text-green-400">404</h1>

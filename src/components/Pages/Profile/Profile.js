@@ -6,7 +6,7 @@ const Profile = () => {
     const [user, loading, error] = useAuthState(auth);
     console.log(user)
     return (
-        <div className='flex flex-col text-left items-center flex-grow'>
+        <div className='bg-gray-100 flex flex-col text-left items-center flex-grow'>
             <h1 className="text-green-500 mt-3 p-4 text-2xl md:text-3xl lg:text-4xl font-bold">Profile</h1>
             <div className="w-11/12 md:w-2/4 m-5 mt-0 md:m-10 mx-auto z-10  p-10 bg-white shadow-2xl rounded-xl">
                 <img

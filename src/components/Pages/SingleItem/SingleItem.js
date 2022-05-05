@@ -12,10 +12,10 @@ const SingleItem = ({ handleDelete, handleUpdate, item }) => {
                 {item.name}
             </td>
             <td className="px-6 py-4">
-                {item.price}
+                ৳{item.price}
             </td>
             <td className="px-6 py-4">
-                ৳{item.quantity}
+                {item.quantity}
             </td>
             <td className="px-6 py-4">
                 {item.supplier}
