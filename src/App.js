@@ -17,6 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RequireAuth from './components/Pages/RequireAuth/RequireAuth';
 import Profile from './components/Pages/Profile/Profile';
+import ForgotPass from './components/Pages/ForgotPass/ForgotPass';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/forgot-pass' element={<ForgotPass></ForgotPass>}></Route>
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
         <Route path='/my-items' element={<RequireAuth>
           <MyItems></MyItems>

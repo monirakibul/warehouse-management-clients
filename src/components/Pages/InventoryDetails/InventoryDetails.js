@@ -6,26 +6,43 @@ const InventoryDetails = () => {
     const [item, setItem] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/inventory/${id}`)
+        fetch(`https://protected-savannah-19898.herokuapp.com/inventory/${id}`)
             .then(res => res.json())
             .then(data => setItem(data))
     })
 
+    // delivered item 
     const handleDelivered = () => {
-        const newQuantity = parseInt(item.quantity) + 1;
-        fetch(`http://localhost:5000/update/${id}`, {
+        const newQuantity = parseInt(item.quantity) - 1;
+        fetch(`https://protected-savannah-19898.herokuapp.com/update/${id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ newQuantity })
+            body: JSON.stringify({ quantity: newQuantity })
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => item.quantity = data.quantity)
     }
 
+
+    // update quantity 
     const updateItem = event => {
         event.preventDefault();
+        const quantity = event.target.quantity.value;
+        const newQuantity = parseInt(item.quantity) + parseInt(quantity);
+        fetch(`https://protected-savannah-19898.herokuapp.com/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ quantity: newQuantity })
+        })
+            .then(res => res.json())
+            .then(data => {
+                item.quantity = data.quantity;
+                event.target.reset()
+            })
     }
     return (
         <div class="container px-5 py-24 mx-auto">
@@ -39,7 +56,7 @@ const InventoryDetails = () => {
                     </div>
                     <p className='text-left'>{item.description}</p>
                     <div className='flex flex-col items-baseline  md:flex-row  md:space-x-5 border-t border-gray-300 mt-5 pt-5'>
-                        <div class="w-2/4 flex flex-col justify-center items-start ">
+                        <div class="w-full md:w-2/4 flex flex-col justify-center items-start ">
                             <p className='my-4'>
                                 Item stock: {item.quantity}
                             </p>
@@ -47,8 +64,8 @@ const InventoryDetails = () => {
                                 Delivered
                             </button>
                         </div>
-                        <form className='w-2/4 flex flex-col justify-evenly items-baseline ' onSubmit={updateItem}>
-                            <input class="my-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="quantity" type="number" placeholder="Quantity" />
+                        <form className='w-full md:w-2/4 flex flex-col justify-evenly items-baseline ' onSubmit={updateItem}>
+                            <input class="my-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="quantity" type="number" placeholder="Quantity" required />
                             <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
                                 Update
                             </button>

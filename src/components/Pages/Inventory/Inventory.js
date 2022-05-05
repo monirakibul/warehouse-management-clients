@@ -7,7 +7,7 @@ const Inventory = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/inventory')
+        fetch('https://protected-savannah-19898.herokuapp.com/inventory')
             .then(res => res.json())
             .then(data => setItems(data))
     }, [items])
@@ -16,7 +16,7 @@ const Inventory = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure?');
         if (proceed) {
-            const url = `http://localhost:5000/delete/${id}`;
+            const url = `https://protected-savannah-19898.herokuapp.com/delete/${id}`;
             fetch(url, {
                 method: 'DELETE'
             })
@@ -37,7 +37,7 @@ const Inventory = () => {
         <div className='flex flex-col text-left items-center  min-h-screen'>
             <h1 className="text-green-500 text-2xl md:text-3xl lg:text-4xl mt-3 font-bold p-4">Manage Inventories</h1>
 
-            <div className="overflow-x-auto w-full">
+            <div className="overflow-x-auto w-11/12 md:w-8/12">
                 <table className="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
                     <thead className="text-xs text-white uppercase bg-green-500 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
