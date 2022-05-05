@@ -74,7 +74,7 @@ const Login = () => {
 
 
     return (
-        <div className="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
+        <div className="min-w-screen flex-grow flex items-center justify-center px-5 py-5">
             <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
                 <div className="md:flex w-full">
                     <div className="hidden md:block w-1/2 bg-green-500 py-10 px-10">
@@ -91,7 +91,7 @@ const Login = () => {
                                     <label for="" className="text-xs font-semibold px-1">Email</label>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiEmail} size="25px" className="text-gray-400"></Icon></div>
-                                        <input type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" name='email' placeholder="johnsmith@example.com" />
+                                        <input type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-green-500" name='email' placeholder="johnsmith@example.com" />
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@ const Login = () => {
                                     <label for="" className="text-xs font-semibold px-1">Password</label>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiLock} size="25px" className="text-gray-400"></Icon></div>
-                                        <input type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" name='password' placeholder="************" />
+                                        <input type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-green-500" name='password' placeholder="************" />
                                     </div>
                                 </div>
                             </div>

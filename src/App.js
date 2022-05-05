@@ -21,7 +21,7 @@ import ForgotPass from './components/Pages/ForgotPass/ForgotPass';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex flex-col h-screen">
       <Header></Header>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>

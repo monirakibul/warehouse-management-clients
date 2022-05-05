@@ -3,7 +3,7 @@ import Carousel from '../../Carousel/Carousel';
 
 const Home = () => {
     return (
-        <div>
+        <div className='flex-grow'>
             <Carousel></Carousel>
         </div>
     );
