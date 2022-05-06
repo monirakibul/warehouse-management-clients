@@ -13,6 +13,7 @@ const MyItems = () => {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // fetch data and stop loading 
     useEffect(() => {
         fetch(`https://protected-savannah-19898.herokuapp.com/inventory?email=${user.email}`)
             .then(res => res.json())
@@ -23,6 +24,7 @@ const MyItems = () => {
     }, [items])
 
 
+    // delete button onclick event 
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure?');
         if (proceed) {
@@ -39,6 +41,7 @@ const MyItems = () => {
         }
     }
 
+    // update button onclick event
     const handleUpdate = id => {
         navigate(`/inventory/${id}`)
     }

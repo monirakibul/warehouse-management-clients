@@ -44,26 +44,6 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
-    // reset password 
-    const [sendPasswordResetEmail, sending, resendError] = useSendPasswordResetEmail(auth);
-    const [userEmail, setUserEmail] = useState('');
-    useEffect(() => {
-        if (resendError?.message) {
-            toast(resendError?.message)
-        }
-    }, [resendError]);
-
-
-    const resendEmail = async () => {
-
-        if (!userEmail) {
-            toast('Enter email');
-        } else {
-            await sendPasswordResetEmail(userEmail);
-            toast('Reset email sent ')
-        }
-    }
-
     if (loading || emailLoading) {
         return <Loading></Loading>;
     }
@@ -110,7 +90,8 @@ const Login = () => {
                                 </div>
                             </div>
                         </form>
-                        <p>Not a account? <Link to='/signup'>SignUp</Link></p>
+                        <p>Not have a account? <Link to='/signup'>SignUp</Link></p>
+                        <p>Forgot password? <Link to='/forgot-pass'>Reset Password</Link></p>
                         <div className="flex items-center space-x-4 my-3">
                             <hr className="w-full border border-gray-300" />
                             <div className="font-semibold text-gray-300">OR</div>
