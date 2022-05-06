@@ -15,6 +15,7 @@ const Header = () => {
     }
     const logOut = () => {
         signOut(auth);
+        toggleMenu()
     }
     return (
         <div>
@@ -39,10 +40,10 @@ const Header = () => {
                         <div className="hidden flex-row md:flex items-center whitespace-nowrap space-x-3 ">
                             {
                                 user ? <>
-                                    <CustomLink to="/inventory">Inventory</CustomLink>
                                     <CustomLink to="/profile">Profile</CustomLink>
                                     <CustomLink to="/my-items">My Items</CustomLink>
                                     <CustomLink to="/add-items">Add Items</CustomLink>
+                                    <CustomLink to="/manage-items">Manage Items</CustomLink>
                                     <a className='lg:py-4 px-2 text-gray-500 font-semibold cursor-pointer lg:hover:text-green-500 transition duration-300 w-full md:block' onClick={logOut}>Log out</a>
                                 </> : <>
                                     <Link to="/login" className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300">Log In</Link>
@@ -74,10 +75,10 @@ const Header = () => {
                     <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/blogs">Blogs</CustomLink>
                     {
                         user ? <>
-                            <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/inventory">Inventory</CustomLink>
                             <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/profile">Profile</CustomLink>
                             <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/my-items">My Items</CustomLink>
                             <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/add-items">Add Items</CustomLink>
+                            <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/manage-items">Manage Item</CustomLink>
                             <a style={{ display: 'block', width: '100%', padding: '10px' }} className='lg:py-4 px-2  font-semibold hover:text-white hover:bg-green-500 w-full transition duration-300 text-gray-500' onClick={logOut}>Log out</a>
                         </> : <>
                             <CustomLink onClick={toggleMenu} style={{ display: 'block', width: '100%', padding: '10px', borderBottom: '1px solid #eee' }} to="/login">LogIn</CustomLink>

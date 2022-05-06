@@ -10,7 +10,6 @@ import NotFound from './components/Pages/NotFound/NotFound';
 import MyItems from './components/Pages/MyItems/MyItems';
 import AddItem from './components/Pages/AddItem/AddItem';
 import ManageItem from './components/Pages/ManageItem/ManageItem';
-import Inventory from './components/Pages/Inventory/Inventory';
 import InventoryDetails from './components/Pages/InventoryDetails/InventoryDetails';
 import Footer from './components/Pages/Shared/Footer/Footer';
 import { ToastContainer } from 'react-toastify';
@@ -38,7 +37,6 @@ function App() {
         <Route path='/manage-items' element={<RequireAuth>
           <ManageItem></ManageItem>
         </RequireAuth>}></Route>
-        <Route path='/inventory' element={<Inventory></Inventory>}></Route>
         <Route path='/inventory/:id' element={<RequireAuth>
           <InventoryDetails></InventoryDetails>
         </RequireAuth>}></Route>

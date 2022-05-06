@@ -11,11 +11,15 @@ const MyItems = () => {
     const navigate = useNavigate();
     const [user] = useAuthState(auth);
     const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch(`https://protected-savannah-19898.herokuapp.com/inventory?email=${user.email}`)
             .then(res => res.json())
-            .then(data => setItems(data))
+            .then(data => {
+                setItems(data);
+                setLoading(false);
+            })
     }, [items])
 
 
@@ -45,36 +49,41 @@ const MyItems = () => {
 
             <div className="overflow-x-auto w-11/12 md:w-full h-full pb-10">
                 {
-                    items.length == 0 ?
-                        <Loading></Loading> : <table className="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
-                            <thead className="text-xs text-white uppercase bg-green-500 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="px-6 py-3">
-                                        Image
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Product Name
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Price
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Stock
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Supplier
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Action
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody className='border-l border-l-gray-300 border-r border-r-gray-300'>
-                                {
-                                    items.map(item => <SingleItem item={item} handleDelete={handleDelete} handleUpdate={handleUpdate}></SingleItem>)
-                                }
-                            </tbody>
-                        </table>
+                    loading ? <Loading></Loading> :
+                        items.length === 0 ?
+                            <div className='w-full md:w-1/2 p-10 bg-white border-gray-100 rounded-lg text-center text-xl text-red-700 m-10 mx-auto'>
+                                No item found
+                            </div>
+                            :
+                            <table className="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
+                                <thead className="text-xs text-white uppercase bg-green-500 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">
+                                            Image
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Product Name
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Price
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Stock
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Supplier
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className='border-l border-l-gray-300 border-r border-r-gray-300'>
+                                    {
+                                        items.map(item => <SingleItem item={item} handleDelete={handleDelete} handleUpdate={handleUpdate}></SingleItem>)
+                                    }
+                                </tbody>
+                            </table>
                 }
             </div>
 

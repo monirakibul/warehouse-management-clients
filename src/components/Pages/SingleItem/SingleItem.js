@@ -9,7 +9,7 @@ const SingleItem = ({ handleDelete, handleUpdate, item }) => {
                 <img src={item.image} style={{ borderRadius: '50%', width: '40px', height: '40px' }} alt="" />
             </th>
             <td className="px-6 py-4">
-                {item.name}
+                {item.name.slice(0, 60)}...
             </td>
             <td className="px-6 py-4">
                 ৳{item.price}

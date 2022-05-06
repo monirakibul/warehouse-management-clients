@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 
 const InventoryDetails = () => {
     const { id } = useParams();
     const [item, setItem] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`https://protected-savannah-19898.herokuapp.com/inventory/${id}`)
@@ -78,7 +79,14 @@ const InventoryDetails = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="p-10 text-center">
+                            <button type="submit" onClick={() => navigate("/manage-items")} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-10/12 md:w-1/3">
+                                Manage Inventories
+                            </button>
+                        </div>
+
                     </div>
+
             }
         </div>
 
