@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '@mdi/react'
 import { mdiEmail, mdiLock } from '@mdi/js';
-import { useAuthState, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { toast } from 'react-toastify';
 import Loading from '../Loading/Loading';
+import axios from 'axios';
+import { async } from '@firebase/util';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -14,7 +16,7 @@ const Login = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
     const handleGoogleSignIn = () => {
-        signInWithGoogle()
+        signInWithGoogle();
     }
 
     // login with email and password 
@@ -30,6 +32,10 @@ const Login = () => {
         toast(emailError?.message ? emailError?.message : error?.message);
     }, [emailError, error])
 
+    //redirect user
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
     const handleLoginUser = async (event) => {
         event.preventDefault();
 
@@ -38,20 +44,21 @@ const Login = () => {
 
         await signInWithEmailAndPassword(email, password);
 
+        //jwt
+        const { data } = await axios.post('https://protected-savannah-19898.herokuapp.com/login', { email })
+        localStorage.setItem('accessToken', data.accessToken);
+        navigate(from, { replace: true });
     }
 
-    //redirect user
-    const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
+
 
     if (loading || emailLoading) {
         return <Loading></Loading>;
     }
 
-    if (user || emailUser) {
+    if (user) {
         navigate(from, { replace: true });
     }
-
 
     return (
         <div className="bg-gray-100 min-w-screen flex-grow flex items-center justify-center px-5 py-5">
@@ -78,9 +85,11 @@ const Login = () => {
                             <div className="flex -mx-3 text-left">
                                 <div className="w-full px-3 mb-12">
                                     <label for="" className="text-xs font-semibold px-1">Password</label>
+                                    <p className='float-right text-xs font-semibold px-1'><Link to='/forgot-pass'>Reset Password</Link></p>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><Icon path={mdiLock} size="25px" className="text-gray-400"></Icon></div>
                                         <input type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-green-500" name='password' placeholder="************" />
+
                                     </div>
                                 </div>
                             </div>
@@ -90,8 +99,7 @@ const Login = () => {
                                 </div>
                             </div>
                         </form>
-                        <p>Not have a account? <Link to='/signup'>SignUp</Link></p>
-                        <p>Forgot password? <Link to='/forgot-pass'>Reset Password</Link></p>
+                        <p>Not have an account? <Link to='/signup'>SignUp</Link></p>
                         <div className="flex items-center space-x-4 my-3">
                             <hr className="w-full border border-gray-300" />
                             <div className="font-semibold text-gray-300">OR</div>

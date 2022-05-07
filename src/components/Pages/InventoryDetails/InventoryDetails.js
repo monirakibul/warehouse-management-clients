@@ -64,7 +64,7 @@ const InventoryDetails = () => {
                                 <div className='flex flex-col items-baseline  md:flex-row  md:space-x-5 border-t border-gray-300 mt-5 pt-5'>
                                     <div className="w-full md:w-2/4 flex flex-col justify-center items-start ">
                                         <p className='my-4'>
-                                            {item.quantity != 0 ? `In Stock: ${item.quantity}` : 'Out of Stock'}
+                                            {item.quantity != 0 ? `In Stock: ${item.quantity}` : <p className='text-red-600 font-bold'>Sold Out</p>}
                                         </p>
                                         <button onClick={handleDelivered} type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
                                             Delivered

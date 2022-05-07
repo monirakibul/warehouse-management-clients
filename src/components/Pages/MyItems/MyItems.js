@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import SingleItem from '../SingleItem/SingleItem';
 import Loading from '../Loading/Loading';
+import axios from 'axios';
+import { signOut } from 'firebase/auth';
 
 const MyItems = () => {
     const navigate = useNavigate();
@@ -15,13 +17,27 @@ const MyItems = () => {
 
     // fetch data and stop loading 
     useEffect(() => {
-        fetch(`https://protected-savannah-19898.herokuapp.com/inventory?email=${user.email}`)
-            .then(res => res.json())
-            .then(data => {
-                setItems(data);
+
+        const getItems = async () => {
+            const url = `https://protected-savannah-19898.herokuapp.com/my-items?email=${user.email}`;
+            try {
+                const { data } = await axios.get(url, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
+                setItems(data)
                 setLoading(false);
-            })
-    }, [items])
+            }
+            catch (error) {
+                if (error.response.status === 401 || error.response.status === 403) {
+                    signOut(auth);
+                    navigate('/login');
+                }
+            }
+        }
+        getItems();
+    }, [user])
 
 
     // delete button onclick event 

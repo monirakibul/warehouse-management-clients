@@ -1,5 +1,6 @@
 import { mdiAccount, mdiEmail, mdiLock } from '@mdi/js';
 import Icon from '@mdi/react';
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
@@ -38,7 +39,7 @@ const SignUp = () => {
     if (loading || updating || emailLoading) {
         return <Loading></Loading>
     }
-    if (user || emailUser) {
+    if (emailUser) {
         navigate('/');
     }
     // create user with email and password 
@@ -51,6 +52,11 @@ const SignUp = () => {
 
         await createUserWithEmailAndPassword(email, password);
         await updateProfile({ displayName: name });
+
+        //jwt
+        const { data } = await axios.post('https://protected-savannah-19898.herokuapp.com/login', { email })
+        localStorage.setItem('accessToken', data.accessToken);
+        navigate('/');
 
     }
     return (
