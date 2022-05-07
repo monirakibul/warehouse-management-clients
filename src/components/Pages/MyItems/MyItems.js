@@ -63,14 +63,14 @@ const MyItems = () => {
     }
 
     return (
-        <div className=' bg-gray-100 flex flex-col text-left items-center flex-grow'>
-            <div className="w-full m-4 my-5 md:w-8/12 flex justify-between items-center whitespace-nowrap">
-                <h1 className="text-green-500 text-2xl md:text-3xl lg:text-4xl font-bold m-1">My Items</h1>
-                <button type="submit" onClick={() => navigate("/add-items")} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <div className=' bg-gray-100 p-5 flex flex-col text-left items-center flex-grow'>
+            <div className="w-full my-5 m-4  md:w-8/12 flex justify-between items-center whitespace-nowrap">
+                <h1 className="text-green-500 text-2xl md:text-3xl lg:text-4xl font-bold">My Items</h1>
+                <button type="submit" onClick={() => navigate("/add-items")} className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                     Add new item
                 </button>
             </div>
-            <div className="w-full m-4 md:w-8/12 h-full pb-10">
+            <div className="overflow-x-auto w-full flex-grow md:w-8/12 mb-10">
                 {
                     loading ? <Loading></Loading> :
                         items.length === 0 ?

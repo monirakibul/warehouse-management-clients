@@ -21,7 +21,7 @@ const HomeInventories = () => {
 
 
     return (
-        <div className="flex items-center justify-center flex-col">
+        <div className="bg-gray-100 flex items-center justify-center flex-col">
             <h1 className="text-green-500 text-2xl md:text-3xl lg:text-4xl mt-3 font-bold p-4">Inventories</h1>
             {
                 // if loading is ture 
@@ -37,18 +37,24 @@ const HomeInventories = () => {
                         </div>
                         :
                         // showing item 
-                        <div class="grid grid-cols-1 md:grid-cols-3 md:w-10/12">
-                            {
-                                inventories.map(inventory => <SingleInventory key={inventory._id} inventory={inventory}></SingleInventory>)
-                            }
-                        </div>
+                        <>
+                            <div class="grid grid-cols-1 md:grid-cols-3 md:w-10/12">
+                                {
+                                    inventories.map(inventory => <SingleInventory key={inventory._id} inventory={inventory}></SingleInventory>)
+                                }
+
+                            </div>
+
+
+                            <div className="p-10 text-center w-full">
+                                <button type="submit" onClick={() => navigate("/manage-items")} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-10/12 md:w-1/4">
+                                    Manage Inventories
+                                </button>
+                            </div>
+                        </>
             }
 
-            <div className="p-10 text-center w-full">
-                <button type="submit" onClick={() => navigate("/manage-items")} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-10/12 md:w-1/4">
-                    Manage Inventories
-                </button>
-            </div>
+
         </div>
     );
 };
