@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 import SingleInventory from '../SingleInventory/SingleInventory';
 
@@ -6,6 +7,7 @@ const HomeInventories = () => {
 
     const [inventories, setInventories] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate()
 
     // fetch inventories and stop loader 
     useEffect(() => {
@@ -41,6 +43,12 @@ const HomeInventories = () => {
                             }
                         </div>
             }
+
+            <div className="p-10 text-center w-full">
+                <button type="submit" onClick={() => navigate("/manage-items")} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-10/12 md:w-1/4">
+                    Manage Inventories
+                </button>
+            </div>
         </div>
     );
 };
