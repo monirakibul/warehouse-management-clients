@@ -1,14 +1,19 @@
+import { Alert } from '@mui/material';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 const Profile = () => {
-    const [user, loading, error] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     console.log(user)
     return (
         <div className='bg-gray-100 flex flex-col text-left items-center flex-grow'>
+
             <h1 className="text-green-500 mt-3 p-4 text-2xl md:text-3xl lg:text-4xl font-bold">Profile</h1>
             <div className="w-11/12 md:w-2/4 m-5 mt-0 md:m-10 mx-auto z-10  p-10 bg-white shadow-2xl rounded-xl">
+                {
+                    user.emailVerified === false && <Alert severity="warning" className='text-center'>Please check your email inbox for verify your account!</Alert>
+                }
                 <img
                     src={user.photoURL ?? 'https://i.ibb.co/zHQpg8Y/download.png'}
                     alt=""

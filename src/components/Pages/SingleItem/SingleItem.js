@@ -8,8 +8,8 @@ const SingleItem = ({ handleDelete, handleUpdate, item }) => {
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                 <img src={item.image} style={{ borderRadius: '50%', width: '40px', height: '40px' }} alt="" />
             </th>
-            <td className="px-6 py-4">
-                {item.name.slice(0, 60)}...
+            <td className="px-6 py-4 whitespace-normal">
+                {item.name}
             </td>
             <td className="px-6 py-4">
                 ৳{item.price}

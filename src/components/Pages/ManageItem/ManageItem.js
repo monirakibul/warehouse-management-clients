@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SingleItem from '../SingleItem/SingleItem';
 import Loading from '../Loading/Loading';
+import AlertDialog from '../../AlertDialog/AlertDialog';
 
 const ManageItem = () => {
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
+    const [deletedId, setDeletedId] = useState('');
 
     useEffect(() => {
         fetch('https://protected-savannah-19898.herokuapp.com/inventory')
@@ -18,19 +21,32 @@ const ManageItem = () => {
     }, [items])
 
 
+    // delete button onclick event 
     const handleDelete = id => {
-        const proceed = window.confirm('Are you sure?');
-        if (proceed) {
-            const url = `https://protected-savannah-19898.herokuapp.com/delete/${id}`;
-            fetch(url, {
-                method: 'DELETE'
+        setDeletedId(id);
+        setIsOpen(true);
+    }
+
+    // 
+
+    //Alert confirm
+    const handleConfirm = () => {
+        setIsOpen(false)
+        const url = `https://protected-savannah-19898.herokuapp.com/delete/${deletedId}`;
+        fetch(url, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const remaining = items.filter(item => item._id !== deletedId);
+                setItems(remaining);
             })
-                .then(res => res.json())
-                .then(data => {
-                    const remaining = items.filter(item => item._id !== id);
-                    setItems(remaining);
-                })
-        }
+    }
+
+    //Alert close 
+    const handleClose = () => {
+        setIsOpen(false)
     }
 
     const handleUpdate = id => {
@@ -49,11 +65,11 @@ const ManageItem = () => {
                 {
                     loading ? <Loading></Loading> :
                         items.length === 0 ?
-                            <div className='w-full md:w-1/2 p-10 bg-white border-gray-100 rounded-lg text-center text-xl text-red-700 m-10 mx-auto'>
+                            <div className='w-full p-10 bg-white border-gray-100 rounded-lg text-center text-xl text-red-700 m-10 mx-auto'>
                                 No item found
                             </div>
                             :
-                            <table className="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
+                            <table className="min-w-full mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
                                 <thead className="text-xs text-white uppercase bg-green-500 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" className="px-6 py-3">
@@ -84,6 +100,8 @@ const ManageItem = () => {
                             </table>
                 }
             </div>
+            <AlertDialog isOpen={isOpen} handleClose={handleClose} handleConfirm={handleConfirm}></AlertDialog>
+
         </div>
     );
 };

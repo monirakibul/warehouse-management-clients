@@ -17,7 +17,7 @@ const Features = () => {
                             </div>
                             <h6 className="text-xl font-semibold">Sign Up</h6>
                             <p className="mt-2 mb-4 text-gray-600">
-                                Divide details about your product or agency work into parts. A paragraph describing a feature will be enough.
+                                Register and login with all the required information.
                             </p>
                         </div>
                     </div>
@@ -34,7 +34,7 @@ const Features = () => {
                                 Add Item
                             </h6>
                             <p className="mt-2 mb-4 text-gray-600">
-                                Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious.
+                                Add the product with all the information of your product.
                             </p>
                         </div>
                     </div>
@@ -51,7 +51,7 @@ const Features = () => {
                                 Manage Items
                             </h6>
                             <p className="mt-2 mb-4 text-gray-600">
-                                Write a few lines about each one. A paragraph describing a feature will be enough. Keep you user engaged!
+                                Manage everything related to stock and delivery of all products.
                             </p>
                         </div>
                     </div>
