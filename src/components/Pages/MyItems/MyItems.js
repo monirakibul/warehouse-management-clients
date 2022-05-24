@@ -22,7 +22,7 @@ const MyItems = () => {
     useEffect(() => {
 
         const getItems = async () => {
-            const url = `https://protected-savannah-19898.herokuapp.com/my-items?email=${user.email}`;
+            const url = `https://warehouse--server.herokuapp.com/my-items?email=${user.email}`;
             try {
                 const { data } = await axios.get(url, {
                     headers: {
@@ -54,7 +54,7 @@ const MyItems = () => {
     //Alert confirm
     const handleConfirm = () => {
         setIsOpen(false)
-        const url = `https://protected-savannah-19898.herokuapp.com/delete/${deletedId}`;
+        const url = `https://warehouse--server.herokuapp.com/delete/${deletedId}`;
         fetch(url, {
             method: 'DELETE'
         })

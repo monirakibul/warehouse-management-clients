@@ -11,7 +11,7 @@ const HomeInventories = () => {
 
     // fetch inventories and stop loader 
     useEffect(() => {
-        fetch('https://protected-savannah-19898.herokuapp.com/inventory')
+        fetch('https://warehouse--server.herokuapp.com/inventory')
             .then(res => res.json())
             .then(data => {
                 setInventories(data.slice(0, 6)); //showing six items

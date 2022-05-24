@@ -23,7 +23,7 @@ const AddItem = () => {
         }
 
 
-        axios.post('https://protected-savannah-19898.herokuapp.com/add-item', newItem)
+        axios.post('https://warehouse--server.herokuapp.com/add-item', newItem)
             .then(response => {
                 const { data } = response;
                 if (data.insertedId) {

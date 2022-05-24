@@ -12,7 +12,7 @@ const ManageItem = () => {
     const [deletedId, setDeletedId] = useState('');
 
     useEffect(() => {
-        fetch('https://protected-savannah-19898.herokuapp.com/inventory')
+        fetch('https://warehouse--server.herokuapp.com/inventory')
             .then(res => res.json())
             .then(data => {
                 setItems(data);
@@ -32,7 +32,7 @@ const ManageItem = () => {
     //Alert confirm
     const handleConfirm = () => {
         setIsOpen(false)
-        const url = `https://protected-savannah-19898.herokuapp.com/delete/${deletedId}`;
+        const url = `https://warehouse--server.herokuapp.com/delete/${deletedId}`;
         fetch(url, {
             method: 'DELETE'
         })

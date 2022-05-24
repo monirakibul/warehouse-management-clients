@@ -8,7 +8,7 @@ const InventoryDetails = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`https://protected-savannah-19898.herokuapp.com/inventory/${id}`)
+        fetch(`https://warehouse--server.herokuapp.com/inventory/${id}`)
             .then(res => res.json())
             .then(data => setItem(data))
     })
@@ -16,7 +16,7 @@ const InventoryDetails = () => {
     // delivered item 
     const handleDelivered = () => {
         const newQuantity = parseInt(item.quantity) - 1;
-        fetch(`https://protected-savannah-19898.herokuapp.com/update/${id}`, {
+        fetch(`https://warehouse--server.herokuapp.com/update/${id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -33,7 +33,7 @@ const InventoryDetails = () => {
         event.preventDefault();
         const quantity = event.target.quantity.value;
         const newQuantity = parseInt(item.quantity) + parseInt(quantity);
-        fetch(`https://protected-savannah-19898.herokuapp.com/update/${id}`, {
+        fetch(`https://warehouse--server.herokuapp.com/update/${id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"

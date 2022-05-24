@@ -45,7 +45,7 @@ const Login = () => {
         await signInWithEmailAndPassword(email, password);
 
         //jwt
-        const { data } = await axios.post('https://protected-savannah-19898.herokuapp.com/login', { email })
+        const { data } = await axios.post('https://warehouse--server.herokuapp.com/login', { email })
         localStorage.setItem('accessToken', data.accessToken);
         navigate(from, { replace: true });
     }
